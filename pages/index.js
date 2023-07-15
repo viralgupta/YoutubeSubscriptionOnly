@@ -87,7 +87,7 @@ function Home() {
     }
     else {
       // document.cookie = `quota=${encodeURIComponent(quota + Number(n))}`
-      axios.post('/api/setcookie',{key: 'quota', value: encodeURIComponent(quota + Number(n))}, { headers:{'Content-Type': 'application/json'}})
+      axios.post('/api/setcookie',{key: 'quota', value: (quota + Number(n))}, { headers:{'Content-Type': 'application/json'}})
       setQuota(e => e + Number(n))
     }
     const datee = getCookieValue('date');
@@ -99,7 +99,7 @@ function Home() {
       };
       const pacificTime = date.toLocaleString('en-US', options);
       // document.cookie = `date=${encodeURIComponent(pacificTime)}`
-      axios.post('/api/setcookie',{key: 'date', value: encodeURIComponent(pacificTime)}, { headers:{'Content-Type': 'application/json'}})
+      axios.post('/api/setcookie',{key: 'date', value: (pacificTime)}, { headers:{'Content-Type': 'application/json'}})
     }
     if (datee) {
       const date = new Date();
@@ -111,9 +111,9 @@ function Home() {
       if (datee !== pacificTime) {
         toast.success("Api Quota has been reset!!!", toastconfig)
         // document.cookie = `date=${encodeURIComponent(pacificTime)}`
-        axios.post('/api/setcookie',{key: 'date', value:encodeURIComponent(pacificTime) }, { headers:{'Content-Type': 'application/json'}})
+        axios.post('/api/setcookie',{key: 'date', value:(pacificTime) }, { headers:{'Content-Type': 'application/json'}})
         // document.cookie = `quota=${encodeURIComponent(0)}`
-        axios.post('/api/setcookie',{key: 'quota', value: encodeURIComponent(0)}, { headers:{'Content-Type': 'application/json'}})
+        axios.post('/api/setcookie',{key: 'quota', value: (0)}, { headers:{'Content-Type': 'application/json'}})
         setQuota(0)
       }
     }
@@ -136,7 +136,7 @@ function Home() {
         increaseQuota(1, 1)
         const res = await encdeckey("Encrypt", apiref.current.value)
         // document.cookie = `APIkey=${encodeURIComponent(res)}`
-        await axios.post('/api/setcookie',{key: 'APIkey', value: encodeURIComponent(res)}, { headers:{'Content-Type': 'application/json'}})
+        await axios.post('/api/setcookie',{key: 'APIkey', value: (res)}, { headers:{'Content-Type': 'application/json'}})
         setApi(res)
       }
     } catch (error) {
@@ -168,11 +168,11 @@ function Home() {
           setUser(user)
           if (checkboxref.current.checked) {
             // document.cookie = `channelId=${encodeURIComponent(channelIdref.current.value)}`
-            axios.post('/api/setcookie',{key: 'channelId', value: encodeURIComponent(channelIdref.current.value)}, { headers:{'Content-Type': 'application/json'}})
+            axios.post('/api/setcookie',{key: 'channelId', value: (channelIdref.current.value)}, { headers:{'Content-Type': 'application/json'}})
             // document.cookie = `name=${encodeURIComponent(response.data.items[0].snippet.title)}`
-            axios.post('/api/setcookie',{key: 'name', value: encodeURIComponent(response.data.items[0].snippet.title)}, { headers:{'Content-Type': 'application/json'}})
+            axios.post('/api/setcookie',{key: 'name', value: (response.data.items[0].snippet.title)}, { headers:{'Content-Type': 'application/json'}})
             // document.cookie = `picture=${encodeURIComponent(response.data.items[0].snippet.thumbnails.default.url)}`
-            axios.post('/api/setcookie',{key: 'picture', value: encodeURIComponent(response.data.items[0].snippet.thumbnails.default.url)}, { headers:{'Content-Type': 'application/json'}})
+            axios.post('/api/setcookie',{key: 'picture', value: (response.data.items[0].snippet.thumbnails.default.url)}, { headers:{'Content-Type': 'application/json'}})
           }
         }
         else {
@@ -252,11 +252,8 @@ function Home() {
     }
   }
 
-  const initiatelogout = () => {
-    const cookies = getCookies()
-    Object.keys(cookies).forEach(key => {
-      deleteCookie(key)
-    });
+  const initiatelogout = async () => {
+    await axios.get('/api/deletecookie')
     window.location = '/'
   }
 
