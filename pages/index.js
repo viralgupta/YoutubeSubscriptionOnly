@@ -312,7 +312,7 @@ function Home() {
             <input ref={apiref} type="text" id="email" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="AIzkdhyACq-gljtJIlZQwkfWSahLIxesvYZ3Os" />
             <button onClick={initiateApikey} type='button' className='text-white p-1 border border-gray-600 hover:cursor-pointer hover:text-gray-400 ml-1 rounded-md'>Submit</button>
           </form>
-          <p id="helper-text-explanation" className="mt-2 text-sm text-gray-500 dark:text-gray-400">We'll never save your API key, It is always stored in your browser in Encrypted format.</p>
+          <p id="helper-text-explanation" className="mt-2 text-sm text-gray-500 dark:text-gray-400">We&apos;ll never save your API key, It is always stored in your browser in Encrypted format.</p>
         </div>}
         {api && !user && <div className='md:w-3/4 p-10 m-auto'>
           <label htmlFor="text" className="mb-2 text-sm font-medium text-gray-900 dark:text-white flex justify-between">Your Youtube channel Id <div>Get your <a rel="noreferrer" target="_blank" href="https://www.youtube.com/account_advanced" className="text-sm font-bold text-red-600 hover:underline dark:text-red-500">Channel Id</a> </div></label>
