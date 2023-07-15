@@ -3,7 +3,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from './Spinner'
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookies } from 'cookies-next';
 
 function Home() {
   const [user, setUser] = useState()
@@ -86,7 +86,8 @@ function Home() {
       setQuota(Number(n))
     }
     else {
-      document.cookie = `quota=${encodeURIComponent(quota + Number(n))}`
+      // document.cookie = `quota=${encodeURIComponent(quota + Number(n))}`
+      axios.post('/api/setcookie',{key: 'quota', value: encodeURIComponent(quota + Number(n))}, { headers:{'Content-Type': 'application/json'}})
       setQuota(e => e + Number(n))
     }
     const datee = getCookieValue('date');
@@ -97,7 +98,8 @@ function Home() {
         weekday: 'long',
       };
       const pacificTime = date.toLocaleString('en-US', options);
-      document.cookie = `date=${encodeURIComponent(pacificTime)}`
+      // document.cookie = `date=${encodeURIComponent(pacificTime)}`
+      axios.post('/api/setcookie',{key: 'date', value: encodeURIComponent(pacificTime)}, { headers:{'Content-Type': 'application/json'}})
     }
     if (datee) {
       const date = new Date();
@@ -108,8 +110,10 @@ function Home() {
       const pacificTime = date.toLocaleString('en-US', options);
       if (datee !== pacificTime) {
         toast.success("Api Quota has been reset!!!", toastconfig)
-        document.cookie = `date=${encodeURIComponent(pacificTime)}`
-        document.cookie = `quota=${encodeURIComponent(0)}`
+        // document.cookie = `date=${encodeURIComponent(pacificTime)}`
+        axios.post('/api/setcookie',{key: 'date', value:encodeURIComponent(pacificTime) }, { headers:{'Content-Type': 'application/json'}})
+        // document.cookie = `quota=${encodeURIComponent(0)}`
+        axios.post('/api/setcookie',{key: 'quota', value: encodeURIComponent(0)}, { headers:{'Content-Type': 'application/json'}})
         setQuota(0)
       }
     }
@@ -131,7 +135,8 @@ function Home() {
         toast.success("Api verified Successfully!", toastconfig)
         increaseQuota(1, 1)
         const res = await encdeckey("Encrypt", apiref.current.value)
-        document.cookie = `APIkey=${encodeURIComponent(res)}`
+        // document.cookie = `APIkey=${encodeURIComponent(res)}`
+        await axios.post('/api/setcookie',{key: 'APIkey', value: encodeURIComponent(res)}, { headers:{'Content-Type': 'application/json'}})
         setApi(res)
       }
     } catch (error) {
@@ -162,9 +167,12 @@ function Home() {
           }
           setUser(user)
           if (checkboxref.current.checked) {
-            document.cookie = `channelId=${encodeURIComponent(channelIdref.current.value)}`
-            document.cookie = `name=${encodeURIComponent(response.data.items[0].snippet.title)}`
-            document.cookie = `picture=${encodeURIComponent(response.data.items[0].snippet.thumbnails.default.url)}`
+            // document.cookie = `channelId=${encodeURIComponent(channelIdref.current.value)}`
+            axios.post('/api/setcookie',{key: 'channelId', value: encodeURIComponent(channelIdref.current.value)}, { headers:{'Content-Type': 'application/json'}})
+            // document.cookie = `name=${encodeURIComponent(response.data.items[0].snippet.title)}`
+            axios.post('/api/setcookie',{key: 'name', value: encodeURIComponent(response.data.items[0].snippet.title)}, { headers:{'Content-Type': 'application/json'}})
+            // document.cookie = `picture=${encodeURIComponent(response.data.items[0].snippet.thumbnails.default.url)}`
+            axios.post('/api/setcookie',{key: 'picture', value: encodeURIComponent(response.data.items[0].snippet.thumbnails.default.url)}, { headers:{'Content-Type': 'application/json'}})
           }
         }
         else {
@@ -245,10 +253,9 @@ function Home() {
   }
 
   const initiatelogout = () => {
-    document.cookie.split(";").forEach((c) => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    const cookies = getCookies()
+    Object.keys(cookies).forEach(key => {
+      deleteCookie(key)
     });
     window.location = '/'
   }
