@@ -3,6 +3,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from './Spinner'
+import { deleteCookie } from 'cookies-next';
 
 function Home() {
   const [user, setUser] = useState()
@@ -64,15 +65,18 @@ function Home() {
     const errorr = getCookieValue("errorr")
     if (success) {
       toast.success(success, toastconfig)
-      document.cookie = "success=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      deleteCookie('success')
+      // document.cookie = "success=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
     else if (error) {
       toast.error(error, toastconfig)
-      document.cookie = "error=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      deleteCookie('error')
+      // document.cookie = "error=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
     else if (errorr) {
       toast.error(errorr, toastconfig)
-      document.cookie = "error=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      deleteCookie('errorr')
+      // document.cookie = "errorr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       initiatelogout()
     }
   }, [])
