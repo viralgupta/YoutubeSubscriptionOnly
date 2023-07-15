@@ -191,7 +191,7 @@ function Home() {
 
   const encdeckey = async (method, apikey) => {
     try {
-      const res = await axios.post("/YoutubeSubscriptionOnly/api/encdecapi", {
+      const res = await axios.post("/api/encdecapi", {
         method: method,
         key: apikey
       }, {
@@ -209,7 +209,7 @@ function Home() {
     setLoading(true)
     setVideodataavailable(false)
     if (user.channelId) {
-      const res = await axios.post("/YoutubeSubscriptionOnly/api/getnewdata", {
+      const res = await axios.post("/api/getnewdata", {
         key: api,
         channelId: user.channelId
       }, {
@@ -223,7 +223,7 @@ function Home() {
       setLoading(false)
     }
     else if (user.access_token) {
-      const res = await axios.post("/YoutubeSubscriptionOnly/api/getnewdata", {
+      const res = await axios.post("/api/getnewdata", {
         key: api,
         ACCESS_TOKEN: user.access_token,
         REFRESH_TOKEN: user.refresh_token,
