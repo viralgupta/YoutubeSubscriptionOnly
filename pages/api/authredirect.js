@@ -92,35 +92,38 @@ export default async function handler(req, res) {
                 secure: false,
             });
             setCookie("success", "Google Account Verified Successfully!!", { req, res,
-                maxAge: 3.154e10, // 1 year
+                maxAge: 5, // 1 year
                 httpOnly: false,
                 domain: process.env.DOMAIN,
                 path: "/",
                 sameSite: "lax",
                 secure: false,
+                expires: new Date(0)
             });
             res.redirect(`${process.env.ORIGIN}`)
         }
         catch (error) {
             setCookie("error", "Could Not Verify Google Account", { req, res,
-                maxAge: 3.154e10, // 1 year
+                maxAge: 5, // 1 year
                 httpOnly: false,
                 domain: process.env.DOMAIN,
                 path: "/",
                 sameSite: "lax",
                 secure: false,
+                expires: new Date(0)
             });
             res.redirect(`${process.env.ORIGIN}`)
         }
     }
     else {
         setCookie("error", "Could Not Verify Google Account", { req, res,
-            maxAge: 3.154e10, // 1 year
+            maxAge: 5, // 1 year
             httpOnly: false,
             domain: process.env.DOMAIN,
             path: "/",
             sameSite: "lax",
             secure: false,
+            expires: new Date(0)
         });
         res.redirect(`${process.env.ORIGIN}`)
     }
