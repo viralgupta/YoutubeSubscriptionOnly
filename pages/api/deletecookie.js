@@ -5,11 +5,11 @@ export default function handler(req, res) {
     Object.keys(cookies).forEach(key => {
       setCookie(key, "Deleting", { req, res,
         maxAge: 5, // 1 year
-        httpOnly: false,
+        httpOnly: true,
         domain: process.env.DOMAIN,
         path: "/",
         sameSite: "lax",
-        secure: false,
+        secure: true,
         expires: new Date(0)
     });
     });
