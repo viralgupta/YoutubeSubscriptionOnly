@@ -1,3 +1,3 @@
-# This Website Only Shows Videos of your currently subscribed channels only
+Simple website to get your Youtube Subscription Feed, to help you get over distractions, Implemented using OAuth2.0
 
-it uses Google Youtube Data API to fetch details, also integrate Google OAuth to signin and load videos or you can upload your channelId to fetch the videos
+![yso](https://github.com/viralgupta/YoutubeSubscriptionOnly/assets/119971154/04ed85c7-0efb-4ff6-9114-fa7f773a1bc9)
